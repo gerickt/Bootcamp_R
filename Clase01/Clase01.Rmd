@@ -1,9 +1,8 @@
 ---
 title: "Bootcamp R - Clase 01"
-author: "Gerick Toro"
-email: "me@gerick.dev"
-date: "2024-11-06"
-output: Rmd
+author: "Gerick Toro - me@gerick.dev"
+date: "2024-11-07"
+output: html_document
 ---
 
 -   R es el software de análisis estadístico.

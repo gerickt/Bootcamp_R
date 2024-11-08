@@ -1,24 +1,17 @@
 ---
 title: "Bootcamp R - Laboartorio 01"
-author: "Gerick Toro"
-email: "me@gerick.dev"
+author: "Gerick Toro - me@gerick.dev"
 date: "2024-11-08"
-output: Rmd
+output: html_document
 ---
 
-# Laboratorio 01
+## Ejercicios Básicos en R
 
-1.  Asignando un valor a la variable bs (bolivianos), convertir el mismo a 5 monedas diferentes, redondeando el resultado a dos decimales. Tú eliges los tipos de monedas.
+### Problema 01
 
-2.  Asignando un valor a la variable gc (Grados Centígrados), convertir el valor de la misma a Grados Fahrenheit, mostrando el resultado redondeado a un decimal.
+**Asignando un valor a la variable bs (bolivianos), convertir el mismo a 5 monedas diferentes, redondeando el resultado a dos decimales. Tú eliges los tipos de monedas.**
 
-3.  Asignando un valor a la variable medida, y un valor texto a la variable tipo, convertirla al tipo de medida especificado en la variable destino. Los únicos tipos válidos son: km de kilómetros, mt de metros, cm de centímetros, pg de pulgadas.
-
-------------------------------------------------------------------------
-
-### Solución 01
-
-Asignaremos de forma individual cada moneda en una variable y haremos el calculo simple de dividir el total (bs) respecto al tipo de cambio oficial a hoy (08 nov 2024).
+Para este problema, asignaremos de forma individual cada moneda en una variable con el calculo simple de dividir el total (bs) respecto al tipo de cambio oficial a hoy (08 nov 2024).
 
 Fuentes:
 
@@ -28,6 +21,7 @@ Fuentes:
 
 ```{r}
 bs <- 2500 # sueldo minimo
+usd <- 6.96  # Dolar
 
 usd <- round(bs / 6.96, 2)  # Dolar
 eur <- round(bs / 7.40, 2)  # Euro
@@ -38,7 +32,13 @@ btc <- round(bs / (6.96 * 75591), 5)  # Bitcoin
 cat("Dolar:", usd, "\nEuro:", eur, "\nYen:", jpy, "\nUSDT:", usdt, "\nBITCOIN:", btc, "\n")
 ```
 
-### Solución 02
+### Problema 02
+
+**Asignando un valor a la variable gc (Grados Centígrados), convertir el valor de la misma a Grados Fahrenheit, mostrando el resultado redondeado a un decimal.**
+
+Para este problema, se ha realizado la conversión de grados centígrados a grados Fahrenheit, utilizando la fórmula de conversión: $$
+F = \frac{9}{5}C + 32
+$$
 
 Fuente: <https://www.google.com/search?q=grados+centigrados+a+farenheit>
 
@@ -46,10 +46,45 @@ Fuente: <https://www.google.com/search?q=grados+centigrados+a+farenheit>
 gc <- 21  # Temperatura promedio en LP
 
 fahrenheit <- round(gc * 9 / 5 + 32, 1)
-cat(fahrenheit, "ºF","\n", gc, "ºC")
+cat(fahrenheit, "ºF", "\n", gc, "ºC")
 ```
 
-### Solución 03
+### Problema 03
+
+**Asignando un valor a la variable medida, y un valor texto a la variable tipo, convertirla al tipo de medida especificado en la variable destino. Los únicos tipos válidos son: km de kilómetros, mt de metros, cm de centímetros, pg de pulgadas.**
+
+Para este problema, se ha creado una estructura de datos que permite realizar la conversión de la medida según el tipo de medida y destino especificado, empleando operadores booleanos y condicionales.
+
+```{r}
+# Entrada
+medida <- 20
+tipo <- "mt"
+destino <-"cm"
+
+if (tipo == "mt" && destino == "cm") {
+  resultado <- medida * 100
+  unidad <- "centímetros"
+} else if (tipo == "mt" && destino == "km") {
+  resultado <- medida / 1000
+  unidad <- "kilómetros"
+} else if (tipo == "km" && destino == "mt") {
+  resultado <- medida * 1000
+  unidad <- "metros"
+} else if (tipo == "cm" && destino == "mt") {
+  resultado <- medida / 100
+  unidad <- "metros"
+} else if (tipo == "pg" && destino == "cm") {
+  resultado <- medida * 2.54
+  unidad <- "centímetros"
+} else {
+  resultado <- "Conversión no válida"
+  unidad <- ""
+}
+
+cat(resultado, unidad, "\n")
+```
+
+------------------------------------------------------------------------
 
 ```{r}
 # Entrada
