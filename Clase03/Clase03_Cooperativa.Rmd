@@ -1,0 +1,10 @@
+---
+title: "Bootcamp R - Clase 03 - Cooperativa"
+author: "Gerick Toro - me@gerick.dev"
+date: "2024-11-09"
+output: html_document
+---
+
+Estructura de los nuevos datasets para trabajar con los datos de la Cooperativa.
+
+![](images/R_cooperativa.jpg)

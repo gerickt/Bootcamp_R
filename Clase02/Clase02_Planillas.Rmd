@@ -39,3 +39,82 @@ descuento_sr <- des[des$CARNET == 4875775, ]
 sum(descuento_sr$MONTO)
 ```
 
+Cuantos empleados del tipo "Profesional 1" tenemos en planilla
+```{r}
+df_merge <- merge(pla, car, by.x = "CARGO", by.y = "ID")
+pro1 <- df_merge[df_merge$DESCRIPCION == "PROFESIONAL I", ]
+length(pro1$CARNET)
+```
+Ejercicio 2
+Cuanto de BONOS tiene el Sr. LUIS SAMUEL CARRASCO ZUMARAN
+
+```{r}
+df_merge <- merge(per, bon, by.x = "CARNET")
+carrasco_bono <- df_merge[df_merge$CARNET == "6751047", ]
+sum(carrasco_bono$MONTO)
+```
+
+Ejercicio 2, alternativa tipo QUERY sin conocer el carnet
+```{r}
+df_merge <- merge(per, bon, by = "CARNET")
+carnet_carrasco <- per$CARNET[per$PATERNO == "CARRASCO" & per$MATERNO == "ZUMARAN" & per$NOMBRES == "LUIS SAMUEL"]
+bono_query <- sum(subset(df_merge, CARNET == carnet_carrasco, select = MONTO))
+bono_query
+```
+
+Ejercicio 3, Cuanto es el total de la planilla del mes de marzo?
+```{r}
+planilla_basico <- merge(pla, car, by.x = "CARGO", by.y = "ID")
+basico <- sum(planilla_basico$BASICO)
+basico
+
+bonos_agregados <- aggregate(MONTO ~ CARNET, data = bon, FUN = sum)
+names(bonos_agregados)[names(bonos_agregados) == "MONTO"] <- "BONOS"
+
+descuentos_agregados <- aggregate(MONTO ~ CARNET, data = des, FUN = sum)
+names(descuentos_agregados)[names(descuentos_agregados) == "MONTO"] <- "DESCUENTOS"
+
+planilla_con_bonos <- merge(planilla_basico, bonos_agregados, by = "CARNET", all.x = TRUE)
+
+planilla_completa <- merge(planilla_con_bonos, descuentos_agregados, by = "CARNET", all.x = TRUE)
+
+planilla_completa$BONOS[is.na(planilla_completa$BONOS)] <- 0
+planilla_completa$DESCUENTOS[is.na(planilla_completa$DESCUENTOS)] <- 0
+
+planilla_completa$Liquido <- planilla_completa$BASICO + planilla_completa$BONOS - planilla_completa$DESCUENTOS
+
+total_planilla <- sum(planilla_completa$Liquido)
+print(paste("Total de la planilla de marzo:", total_planilla))
+```
+
+Ejercicio 3, Cuanto es el total de la planilla del mes de marzo?
+
+```{r}
+planilla_completa <- pla %>%
+  left_join(car, by = c("CARGO" = "ID")) %>%
+  left_join(bon %>% group_by(CARNET) %>% summarise(BONOS = sum(MONTO)), by = "CARNET") %>%
+  left_join(des %>% group_by(CARNET) %>% summarise(DESCUENTOS = sum(MONTO)), by = "CARNET") %>%
+  mutate(
+    BONOS = ifelse(is.na(BONOS), 0, BONOS),
+    DESCUENTOS = ifelse(is.na(DESCUENTOS), 0, DESCUENTOS),
+    Liquido = BASICO + BONOS - DESCUENTOS
+  )
+
+total_planilla <- sum(planilla_completa$Liquido)
+
+print(paste("Total de la planilla de marzo:", total_planilla))
+```
+
+
+```{r}
+planilla_basico <- merge(pla, car, by.x = "CARGO", by.y = "ID")
+planilla_bonos <- merge(planilla_basico, bon, by = "CARNET")
+planilla_completa <- merge(planilla_bonos, des, by = "CARNET")
+
+planilla_completa$Liquido <- planilla_completa$BASICO + planilla_completa$MONTO.y - planilla_completa$MONTO.x
+
+total_planilla <- sum(planilla_completa$Liquido)
+
+print(paste("Total de la planilla de marzo:", total_planilla))
+```
+

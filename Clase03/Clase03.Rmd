@@ -1,0 +1,127 @@
+|                                                                        |
+|------------------------------------------------------------------------|
+| title: "Bootcamp R - Clase 03"                                         |
+| author: "Gerick Toro - [me\@gerick.dev](mailto:me@gerick.dev){.email}" |
+| date: "2024-11-09"                                                     |
+| output: html_document                                                  |
+
+## Estructura de datos
+
+-   IF (Condicional *Then -\> TRUE, FALSE*)
+
+```{r}
+# Ejemplo de IF
+if (TRUE){
+  print("Es verdadero")
+} else {
+  print("Es falso")
+}
+```
+
+-   FOR (Bucles *del 1 al 10*)
+
+    Usamos el comando `for` y el comando `paste` para combinar la salida de la variable con otras o con strings.
+
+```{r}
+# Ejemplo de FOR
+for (i in 1:10){
+  print(paste("valor:", i))
+}
+```
+
+-   Vectores (lista de elementos de un mismo tipo)
+
+```{r}
+v = c(1,2,3,4,5,6,7,8,9,10)
+v = c(1,3,5,7,9,11,13,15,17,19)
+v = c("lunes", "martes", "miercoles", "jueves", "viernes")
+v = c(1.2, "hola", 3, "mar", 5.9i)
+for (i in v){
+  print(i)
+}
+# tipo de vector
+class(v)
+```
+
+Ciclo sin tomar en cuenta los pares:
+
+```{r}
+w = c(1,2,3,4,5,6,7,8,9,10)
+for (i in w){
+  if (i %% 2 == 0){
+    next
+  }
+  print(i)
+}
+```
+
+Ciclo sin tomar en cuenta los impares:
+
+```{r}
+w = c(1,2,3,4,5,6,7,8,9,10)
+for (i in w){
+  if (i %% 2 == 1){
+    next
+  }
+  print(i)
+}
+```
+
+-   Funciones
+
+```{r}
+mifun = function (){
+  print("Hello world!")
+}
+```
+
+Ejecutando la función `mifun`:
+
+```{r}
+mifun()
+```
+Creando una función con dos parámetros.
+```{r}
+mifun2 = function (a, b){
+  print(paste("El valor de a es:", a))
+  print(paste("El valor de b es:", b))
+}
+```
+
+Ejecutando la función `mifun2`:
+```{r}
+mifun2(10, 20)
+```
+
+Función para calcular la hipotenusa
+```{r}
+hipotenusa = function (base=3, altura=4){
+  return (sqrt(base^2 + altura^2))
+}
+```
+
+Ejecutando la función `hipotenusa`:
+```{r}
+hipotenusa(3, 4)
+hipotenusa(10, 15)
+hipotenusa(12)
+hipotenusa(,4)
+```
+
+- While
+
+```{r}
+i=1
+while (i <= 5){
+  print(i)
+  i = i + 1
+}
+```
+
+El indice sieempre empieza en 1, en R
+```{r}
+dias = c("lunes", "martes", "miercoles", "jueves", "viernes")
+dias[1]
+dias[5]
+```
+
