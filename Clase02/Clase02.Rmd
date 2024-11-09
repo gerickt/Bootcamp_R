@@ -1,0 +1,70 @@
+---
+title: "Bootcamp R - Clase 02"
+author: "Gerick Toro - me@gerick.dev"
+date: "2024-11-08"
+output: html_document
+---
+
+Utilizando la libreria **tidyverse** para leer archivos csv y cargarlos como dataframe en RStudio.
+
+```{r}
+df <- read.csv("productos.csv", sep = ";")
+#view(df)
+class(df)
+```
+
+```{r}
+# llevar a vector
+nprod = df$DESCRIPCION
+class(nprod)
+
+# llevar a dataframe
+nombrep = as.data.frame(df$DESCRIPCION)
+nombrep
+
+```
+
+Filtraremos solamente los productos de la linea 5002
+```{r}
+df_bolos = filter(df, LINEA == 5002)
+sum(df_bolos$EXISTENCIA)
+```
+
+Ejercicio 1
+```{r}
+df_tortasheladas = filter(df, LINEA == 5003)
+sum(df_tortasheladas$EXISTENCIA)
+```
+
+Ejercicio 2
+```{r}
+df_lacteos <- filter(df, LINEA == 5012)
+sum(df_lacteos$EXISTENCIA)
+```
+
+Ejercicio 2, alternativa
+```{r}
+df_leche <- filter(df, str_starts(DESCRIPCION, "LECHE"))
+sum(df_leche$EXISTENCIA)
+```
+
+Ejercicio 3
+```{r}
+df_vasos <- filter(df, str_starts(DESCRIPCION, "VASO|COPA"))
+sum(df_vasos$EXISTENCIA)
+```
+
+
+Ejercicio 3, alternativa
+```{r}
+df_vasos2 <- filter(df, str_detect(DESCRIPCION, "VASO|COPA"))
+sum(df_vasos2$EXISTENCIA)
+```
+
+
+Ejercicio 3,Se desea saber existencias de cuantos productos q contienen kiwi tenemos
+```{r}
+df_fruta <- filter(df, str_detect(DESCRIPCION, "KIWI"))
+sum(df_fruta$EXISTENCIA)
+```
+

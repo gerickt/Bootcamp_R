@@ -1,0 +1,41 @@
+---
+title: "Bootcamp R - Clase 02 - Planillas"
+author: "Gerick Toro - me@gerick.dev"
+date: "2024-11-08"
+output: html_document
+---
+
+## Planillas
+
+Carrga de los datasets:
+
+```{r}
+car <- read.csv("planillas/cargos.csv", sep=";")
+per <- read.csv("planillas/personal.csv", sep=";")
+pla <- read.csv("planillas/planillas.csv", sep=";")
+des <- read.csv("planillas/desctos.csv", sep=";")
+bon <- read.csv("planillas/bonos.csv", sep=";")
+```
+
+Cuantas personas tenemos:
+
+```{r}
+#length(per$CARNET)
+summary(per)
+```
+
+Los 22 que faltan en planillas:
+Ejercicio 4
+```{r}
+carnets_no_en_pla <- setdiff(per$CARNET, pla$CARNET)
+carnets_no_en_pla
+length(carnets_no_en_pla)
+```
+
+Cuanto se le descontó al Sr. Iriarte
+Ejercicio 5
+```{r}
+descuento_sr <- des[des$CARNET == 4875775, ]
+sum(descuento_sr$MONTO)
+```
+

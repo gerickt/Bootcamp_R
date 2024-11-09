@@ -17,3 +17,5 @@ PythonVersion: 3.12.6
 PythonPath: /usr/bin/python3.12
 
 SpellingDictionary: es_ES
+
+ProjectName: Bootcamp R
